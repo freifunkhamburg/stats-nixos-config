@@ -38,12 +38,12 @@
       exec 3>&1 >&2
       mkdir -p /var/lib/grafana
       if [ ! -s /var/lib/grafana/admin.pw ]; then
-        tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c$\{1:-32} > /var/lib/grafana/admin.pw
+        tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c32 > /var/lib/grafana/admin.pw
         chmod 400 /var/lib/grafana/admin.pw
         chown grafana:grafana /var/lib/grafana/admin.pw
       fi
       if [ ! -s /var/lib/grafana/security.key ]; then
-        tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c$\{1:-32} > /var/lib/grafana/security.key
+        tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c32 > /var/lib/grafana/security.key
         chmod 400 /var/lib/grafana/security.key
         chown grafana:grafana /var/lib/grafana/security.key
       fi
