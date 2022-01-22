@@ -7,20 +7,16 @@
 {
   imports =
     [
-      ./acme.nix
+      ./boot.nix
+      ./hardware-configuration.nix
       ./sshusers.nix
+      ./acme.nix
       ./nginx.nix
       ./grafana.nix
       ./influxdb.nix
       ./collector.nix
     ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.device = "/dev/vda";
-
-  swapDevices = [{ device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0-part2"; randomEncryption.enable = true; randomEncryption.source = "/dev/random"; }];
 
   networking = {
     hostName = "stats";
