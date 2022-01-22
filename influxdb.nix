@@ -49,15 +49,15 @@
         set -euo pipefail
         if [ ! -s /var/lib/influxdb/admin.pw ]; then
           INIT=1
-          head -c 30 /dev/urandom | base64 > /var/lib/influxdb/admin.pw
+          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c$\{1:-32} > /var/lib/influxdb/admin.pw
           chmod 400 /var/lib/influxdb/admin.pw
         fi
         if [ ! -s /var/lib/influxdb/knotendaten.pw ]; then
-          head -c 30 /dev/urandom | base64 > /var/lib/influxdb/knotendaten.pw
+          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c$\{1:-32} > /var/lib/influxdb/knotendaten.pw
           chmod 400 /var/lib/influxdb/knotendaten.pw
         fi
         if [ ! -s /var/lib/influxdb/grafana.pw ]; then
-          head -c 30 /dev/urandom | base64 > /var/lib/influxdb/grafana.pw
+          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c$\{1:-32} > /var/lib/influxdb/grafana.pw
           chmod 400 /var/lib/influxdb/grafana.pw
         fi
         until ${pkgs.curl}/bin/curl --connect-timeout 1 http://127.0.0.1:8086/ping; do
