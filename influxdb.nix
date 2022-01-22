@@ -67,12 +67,13 @@
           read -r adminpw < /var/lib/influxdb/admin.pw
           read -r knotendatenpw < /var/lib/influxdb/knotendaten.pw
           read -r grafanapw < /var/lib/influxdb/grafana.pw
-          ${config.services.influxdb.package}/bin/influx -execute 'create database freifunk'
-          ${config.services.influxdb.package}/bin/influx -database freifunk -execute "create user admin with password '$adminpw'"
-          ${config.services.influxdb.package}/bin/influx -database freifunk -execute "create user grafana with password '$grafanapw'"
-          ${config.services.influxdb.package}/bin/influx -database freifunk -execute "create user knotendaten with password '$knotendatenpw'"
-          ${config.services.influxdb.package}/bin/influx -database freifunk -execute "grant read on freifunk to grafana"
-          ${config.services.influxdb.package}/bin/influx -database freifunk -execute "grant all on freifunk to admin"
+          ${config.services.influxdb.package}/bin/influx -execute "create user admin with password '$adminpw' WITH ALL PRIVILEGES"
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -execute 'create database freifunk'
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "grant all on freifunk to admin"
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "create user grafana with password '$grafanapw'"
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "create user knotendaten with password '$knotendatenpw'"
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "grant read on freifunk to grafana"
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "grant write on freifunk to knotendaten"
         fi
         '') ];
     };
