@@ -9,7 +9,7 @@
       meta.reporting-disabled = true;
       data.query-log-enabled = false;
       http.bind-address = "localhost:8086";
-      http.auth-enabled = false;
+      http.auth-enabled = true;
       http.log-enabled = false;
     };
   };
