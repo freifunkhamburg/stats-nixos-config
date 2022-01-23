@@ -45,7 +45,6 @@
       UMask = "077";
       RuntimeDirectory = "influxdb";
       ExecStartPost = lib.mkForce [ (pkgs.writeShellScript "influxdb-first-run" ''
-        #!${pkgs.stdenv.shell}
         set -euo pipefail
         if [ ! -s /var/lib/influxdb/admin.pw ]; then
           INIT=1
