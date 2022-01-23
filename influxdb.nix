@@ -49,24 +49,24 @@
         set -euo pipefail
         if [ ! -s /var/lib/influxdb/admin.pw ]; then
           INIT=1
-          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c32 > /var/lib/influxdb/admin.pw
+          ( tr -dc _A-Z-a-z-0-9 </dev/urandom || : ) | head -c32 > /var/lib/influxdb/admin.pw
           chmod 400 /var/lib/influxdb/admin.pw
         fi
         if [ ! -s /var/lib/influxdb/knotendaten.pw ]; then
-          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c32 > /var/lib/influxdb/knotendaten.pw
+          ( tr -dc _A-Z-a-z-0-9 </dev/urandom || : ) | head -c32 > /var/lib/influxdb/knotendaten.pw
           chmod 400 /var/lib/influxdb/knotendaten.pw
         fi
         if [ ! -s /var/lib/influxdb/grafana.pw ]; then
-          tr -dc _A-Z-a-z-0-9 </dev/urandom | head -c32 > /var/lib/influxdb/grafana.pw
+          ( tr -dc _A-Z-a-z-0-9 </dev/urandom || : ) | head -c32 > /var/lib/influxdb/grafana.pw
           chmod 400 /var/lib/influxdb/grafana.pw
         fi
         until ${pkgs.curl}/bin/curl --connect-timeout 1 http://127.0.0.1:8086/ping; do
           sleep 1
         done
         if [ -v INIT ]; then
-          read -r adminpw < /var/lib/influxdb/admin.pw
-          read -r knotendatenpw < /var/lib/influxdb/knotendaten.pw
-          read -r grafanapw < /var/lib/influxdb/grafana.pw
+          read -N 32 -r adminpw < /var/lib/influxdb/admin.pw
+          read -N 32 -r knotendatenpw < /var/lib/influxdb/knotendaten.pw
+          read -N 32 -r grafanapw < /var/lib/influxdb/grafana.pw
           ${config.services.influxdb.package}/bin/influx -execute "create user admin with password '$adminpw' WITH ALL PRIVILEGES"
           ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -execute 'create database freifunk'
           ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "grant all on freifunk to admin"
