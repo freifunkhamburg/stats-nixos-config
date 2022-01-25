@@ -31,7 +31,7 @@ in
       PrivateTmp = true;
       RuntimeDirectory = "collector";
       ExecStart = "${pkgs.ruby.withPackages (ps: with ps; [ json ])}/bin/ruby ${collector}/query-data.influx --config /run/collector/collector-config";
-      ExecStartPre = "${pkgs.writeShellScript "collector-init" ''
+      ExecStartPre = "+${pkgs.writeShellScript "collector-init" ''
         until [ -s /var/lib/influxdb/knotendaten.pw ]; do
           sleep 1
         done
