@@ -6,7 +6,6 @@ let
     repo = "ffhh-stats";
     rev = "76c61a0c0f7d276fd79026b551780e318901adf6";
     sha256 = "0irnc8ffm413aq3sh64sd2457yp2ax4paaf0ss9r1pkbkb8q5dgx";
-
   };
 in
 {
