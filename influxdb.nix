@@ -44,10 +44,12 @@
       IPAddressAllow = "localhost";
       UMask = "077";
       RuntimeDirectory = "influxdb";
+      ExecStartPre = [ (pkgs.writeShellScript "influxdb-first-run" ''
+        [ -d /var/lib/influxdb/meta ] || touch /var/lib/influxdb/need-init
+        '') ];
       ExecStartPost = lib.mkForce [ (pkgs.writeShellScript "influxdb-first-run" ''
         set -euo pipefail
         if [ ! -s /var/lib/influxdb/admin.pw ]; then
-          INIT=1
           ( tr -dc _A-Z-a-z-0-9 </dev/urandom || : ) | head -c32 > /var/lib/influxdb/admin.pw
           chmod 400 /var/lib/influxdb/admin.pw
         fi
@@ -62,7 +64,8 @@
         until ${pkgs.curl}/bin/curl --connect-timeout 1 http://127.0.0.1:8086/ping; do
           sleep 1
         done
-        if [ -v INIT ]; then
+        if [ -e /var/lib/influxdb/need-init ]; then
+          rm -f /var/lib/influxdb/need-init
           read -N 32 -r adminpw < /var/lib/influxdb/admin.pw
           read -N 32 -r knotendatenpw < /var/lib/influxdb/knotendaten.pw
           read -N 32 -r grafanapw < /var/lib/influxdb/grafana.pw
