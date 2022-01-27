@@ -4,8 +4,8 @@ let
   collector = pkgs.fetchFromGitHub {
     owner = "tokudan";
     repo = "ffhh-stats";
-    rev = "76c61a0c0f7d276fd79026b551780e318901adf6";
-    sha256 = "0irnc8ffm413aq3sh64sd2457yp2ax4paaf0ss9r1pkbkb8q5dgx";
+    rev = "ac53418bed9819a614cad242fc4f2fcc72907bde";
+    sha256 = "0j7mbwczvanb0ybf462c61wjivpb764fjzxr2ywxb1x8h2bwswxh";
   };
   collector-config = pkgs.writeText "collector-config" ''
     graph_json = https://hopglass-backend.hamburg.freifunk.net/mv1/graph.json
