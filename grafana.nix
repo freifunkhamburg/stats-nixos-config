@@ -6,9 +6,9 @@
     analytics.reporting.enable = false;
     protocol = "socket";
     rootUrl = "https://stats.besaid.de/";
-    auth.anonymous.enable = false;
+    auth.anonymous.enable = true;
     security = {
-      adminUser = "dfrank";
+      adminUser = "tokudan";
       adminPasswordFile = "/var/lib/grafana/admin.pw";
       secretKeyFile = "/var/lib/grafana/security.key";
     };
