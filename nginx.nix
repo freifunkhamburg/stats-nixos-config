@@ -4,10 +4,11 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   services.nginx = {
     enable = true;
-    #logError = "/dev/null";
+    appendConfig = ''
+      access_log off;
+      '';
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
-    recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts."stats.hamburg.freifunk.net" = {
       default = true;
