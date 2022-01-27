@@ -10,7 +10,7 @@ let
   collector-config = pkgs.writeText "collector-config" ''
     graph_json = https://hopglass-backend.hamburg.freifunk.net/mv1/graph.json
     nodes_json = https://hopglass-backend.hamburg.freifunk.net/mv1/nodes.json
-    interval = 300
+    interval = 900
     interval_forced = true
     influx_url = http://127.0.0.1:8086/write?db=freifunk&u=knotendaten&p=@@INFLUXPASS@@&precision=s
     region = ffhh
