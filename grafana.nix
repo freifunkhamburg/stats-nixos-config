@@ -4,16 +4,18 @@
   services.grafana = {
     enable = true;
     analytics.reporting.enable = false;
-    analytics.check_for_updates = false;
     protocol = "socket";
     rootUrl = "https://stats.besaid.de/";
     auth.anonymous.enable = true;
-    auth.anonymous.hide_version = true;
-    auth.signout_redirect_url = "/";
     security = {
       adminUser = "tokudan";
       adminPasswordFile = "/var/lib/grafana/admin.pw";
       secretKeyFile = "/var/lib/grafana/security.key";
+    };
+    extraOptions = {
+      "ANALYTICS.CHECK_FOR_UPDATES" = "false";
+      "AUTH_ANONYMOUS_HIDE_VERSION" = "true";
+      "AUTH_SIGNOUT_REDIRECT_URL" = "/";
     };
   };
   systemd.services.grafana.serviceConfig = {
