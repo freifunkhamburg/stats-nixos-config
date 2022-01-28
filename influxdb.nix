@@ -70,7 +70,8 @@
           read -N 32 -r knotendatenpw < /var/lib/influxdb/knotendaten.pw
           read -N 32 -r grafanapw < /var/lib/influxdb/grafana.pw
           ${config.services.influxdb.package}/bin/influx -execute "create user admin with password '$adminpw' WITH ALL PRIVILEGES"
-          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -execute 'create database freifunk'
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -execute 'CREATE DATABASE freifunk'
+          ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -execute 'CREATE RETENTION POLICY "default" ON "freifunk" DURATION 90d REPLICATION 1 SHARD DURATION 1d DEFAULT'
           ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "grant all on freifunk to admin"
           ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "create user grafana with password '$grafanapw'"
           ${config.services.influxdb.package}/bin/influx -username admin -password "$adminpw" -database freifunk -execute "create user knotendaten with password '$knotendatenpw'"
