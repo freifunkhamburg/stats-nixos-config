@@ -13,7 +13,7 @@
       secretKeyFile = "/var/lib/grafana/security.key";
     };
     extraOptions = {
-      "ANALYTICS.CHECK_FOR_UPDATES" = "false";
+      "ANALYTICS_CHECK_FOR_UPDATES" = "false";
       "AUTH_ANONYMOUS_HIDE_VERSION" = "true";
       "AUTH_SIGNOUT_REDIRECT_URL" = "/";
     };
