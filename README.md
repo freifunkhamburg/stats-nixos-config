@@ -7,7 +7,7 @@ Initiales Setup
 2. Passwörter liegen nach dem Start des ersten Dienstes jeweils unter `/var/lib/*/*.pw`
 3. Nginx konfigurieren um ACME zu benutzen
 4. services.influxdb.extraConfig.http.auth-enabled auf true setzen
-5. Config für Collector erstellen und hier ablegen: /var/lib/private/collector/ffhh.conf
+5. Config für Collector anpassen in collector.nix
 6. Grafana konfigurieren
 
 
