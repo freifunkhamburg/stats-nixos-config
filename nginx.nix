@@ -7,6 +7,13 @@
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedTlsSettings = true;
+    virtualHosts."statistik.hamburg.freifunk.net" = {
+      enableACME = true;
+      forceSSL = true;
+      extraConfig = ''
+        rewrite ^/(.*)$ https://stats.hamburg.freifunk.net/ redirect;
+        '';
+    };
     virtualHosts."stats.hamburg.freifunk.net" = {
       default = true;
       enableACME = true;
