@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
+  disabledModules = [ "services/databases/influxdb.nix" ];
+  imports = [ ./influxdb-module.nix ];
   environment.systemPackages = [ pkgs.influxdb ];
   services.influxdb = {
     enable = true;
