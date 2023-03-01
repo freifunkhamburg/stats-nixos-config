@@ -9,13 +9,11 @@
     auth.anonymous.enable = true;
     security = {
       adminUser = "tokudan";
-      adminPasswordFile = "/var/lib/grafana/admin.pw";
-      secretKeyFile = "/var/lib/grafana/security.key";
     };
-    extraOptions = {
-      "ANALYTICS_CHECK_FOR_UPDATES" = "false";
-      "AUTH_ANONYMOUS_HIDE_VERSION" = "true";
-      "AUTH_SIGNOUT_REDIRECT_URL" = "/";
+    settings = {
+      analytics.check_for_updates = false;
+      auth.anonymous_hide_version = true;
+      auth.signout_redirect_url = "/";
     };
   };
   systemd.services.grafana.serviceConfig = {
